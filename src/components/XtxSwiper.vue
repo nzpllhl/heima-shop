@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { BannerItem } from '@/types/home'
 import { ref } from 'vue'
+// 索引
 const activeIndex = ref(0)
 // 当swiper滑动时触发
 const onChange: UniHelper.SwiperOnChange = (ev) => {
