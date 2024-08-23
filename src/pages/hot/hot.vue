@@ -6,7 +6,7 @@ import { ref } from 'vue'
 import type { SubTypeItem } from '@/types/hot'
 const bannerPicture = ref('')
 // 头部切换title
-const subTypes = ref<(SubTypeItem & { finish?: boolean})[]>([])
+const subTypes = ref<(SubTypeItem & { finish?: boolean })[]>([])
 // 高亮的下标
 const activeindex = ref(0)
 // 热门推荐页 标题和url
@@ -18,28 +18,28 @@ const hotMap = [
 ]
 // uniapp获取页面动态参数路由参数的写法
 const query = defineProps<{
-  type: String 
+  type: String
 }>()
 // 动态设置标题!非空断言
-const cerrUrlMap = hotMap.find(v=>v.type === query.type)
-uni.setNavigationBarTitle({title: cerrUrlMap!.title})
+const cerrUrlMap = hotMap.find((v) => v.type === query.type)
+uni.setNavigationBarTitle({ title: cerrUrlMap!.title })
 // 获取热门推荐的数据
-const getHotRecommendData = async() => {
-  const res = await getHotRecommendAPI(cerrUrlMap!.url,{
+const getHotRecommendData = async () => {
+  const res = await getHotRecommendAPI(cerrUrlMap!.url, {
     // 调试技巧：环境变量，开发环境修改初始页面方便测试分页结束,方便测还不用来回改代码
     page: import.meta.env.DEV ? 30 : 1,
-    pageSize:10
+    pageSize: 10,
   })
-  bannerPicture.value= res.result.bannerPicture
+  bannerPicture.value = res.result.bannerPicture
   subTypes.value = res.result.subTypes
 }
 // 页面的加载
-onLoad(()=>{
+onLoad(() => {
   getHotRecommendData()
 })
-// 滚动触底的函数
 
-const onScrolltolower = async()=>{
+// 滚动触底的时候加载不同table的数据
+const onScrolltolower = async () => {
   // 获取当前选项的下标
   const currsubTypes = subTypes.value[activeindex.value]
   // 让当前的页码累加
@@ -56,50 +56,51 @@ const onScrolltolower = async()=>{
   // 调用接口把页码传过去
   const res = await getHotRecommendAPI(cerrUrlMap!.url, {
     subType: currsubTypes.id,
-    page:currsubTypes.goodsItems.page,
-    pageSize: currsubTypes.goodsItems.pageSize
+    page: currsubTypes.goodsItems.page,
+    pageSize: currsubTypes.goodsItems.pageSize,
   })
   // 新的列表赋值
   const newsubTypes = res.result.subTypes[activeindex.value]
   // 数组追加
   currsubTypes.goodsItems.items.push(...newsubTypes.goodsItems.items)
-  
 }
 </script>
 <template>
   <view class="viewport">
     <!-- 推荐封面图 -->
     <view class="cover">
-      <image
-        :src="bannerPicture">
-      </image>
+      <image :src="bannerPicture"> </image>
     </view>
     <!-- 推荐选项 -->
     <view class="tabs">
-      <text v-for="(item,index) in subTypes" 
-        class="text" 
-        :class="{active: index === activeindex }"
+      <text
+        v-for="(item, index) in subTypes"
+        class="text"
+        :class="{ active: index === activeindex }"
         :key="item.id"
         @tap="activeindex = index"
-        >{{item.title}}</text>
+        >{{ item.title }}</text
+      >
     </view>
     <!-- 推荐列表 -->
-    <scroll-view 
-      scroll-y class="scroll-view"
-      v-for="(item, index) in subTypes" 
+    <scroll-view
+      scroll-y
+      class="scroll-view"
+      v-for="(item, index) in subTypes"
       :key="item.id"
       v-show="activeindex === index"
       @scrolltolower="onScrolltolower"
-      >
+    >
       <view class="goods">
-        <navigator 
-          hover-class="none" 
-          class="navigator" 
-          v-for="goods in item.goodsItems.items" 
-          :key="goods" 
-          :url="`/pages/goods/goods?id=${goods.id}`">
+        <navigator
+          hover-class="none"
+          class="navigator"
+          v-for="goods in item.goodsItems.items"
+          :key="goods"
+          :url="`/pages/goods/goods?id=${goods.id}`"
+        >
           <image class="thumb" :src="goods.picture"></image>
-          <view class="name ellipsis">{{goods.name}}</view>
+          <view class="name ellipsis">{{ goods.name }}</view>
           <view class="price">
             <text class="symbol">¥</text>
             <text class="number">{{ goods.price }}</text>
