@@ -1,8 +1,6 @@
 import type { PageResult, PageParams } from '@/types/global'
 import type { BannerItem, CategoryItem, HotItem, GuessItem } from '@/types/home'
 import { http } from '@/utils/http'
-
-// 首页轮播图默认值为1
 export const getHomeBannerAPT = (distributionSite = 1) => {
   return http<BannerItem[]>({
     method: 'GET',

@@ -21,5 +21,5 @@ declare module 'vue' {
     XtxGuess: typeof XtxGuess
   }
 }
-// 组件实例类型获取组件的实例类型，猜你喜欢的实例类型
+// 组件实例类型获取组件的实例类型，猜你喜欢的实例类型因为其他页面也要用到所以在components.d.ts中定义
 export type XtxGuessInstance = InstanceType<typeof XtxGuess>

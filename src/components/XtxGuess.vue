@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { getHomeGoodsGuessLikeAPI } from '@/services/home';
-import type { PageParams } from '@/types/global';
-import type { GuessItem } from '@/types/home';
+import { getHomeGoodsGuessLikeAPI } from '@/services/home'
+import type { PageParams } from '@/types/global'
+import type { GuessItem } from '@/types/home'
 import { ref, onMounted } from 'vue'
 
 // 分页的参数类型Required 把可选参数变成必选参数
 const pageParams: Required<PageParams> = {
   page: 1,
-  pageSize: 10
+  pageSize: 10,
 }
 // 在组建自身内部获取数据,猜你喜欢的列表数据
 const guessList = ref<GuessItem[]>([])
@@ -18,7 +18,7 @@ const getHomeGoodsGuessLikedata = async () => {
   if (finish.value === true) {
     return uni.showToast({
       icon: 'none',
-      title: '没有更多数据！'
+      title: '没有更多数据！',
     })
   }
   const res = await getHomeGoodsGuessLikeAPI(pageParams)
@@ -34,7 +34,7 @@ const getHomeGoodsGuessLikedata = async () => {
   }
 }
 // 重置数据
-const resetData =()=>{
+const resetData = () => {
   pageParams.pageSize = 1
   guessList.value = []
   finish.value = false
@@ -44,10 +44,11 @@ onMounted(() => {
   getHomeGoodsGuessLikedata()
 })
 
-// 暴露属性或者方法
+// 暴露属性或者方法，供给父页面调用
 defineExpose({
   resetData,
-  getMore: getHomeGoodsGuessLikedata
+  // 父页面使用getMore这个方法名
+  getMore: getHomeGoodsGuessLikedata,
 })
 </script>
 <template>
@@ -56,12 +57,12 @@ defineExpose({
     <text class="text">猜你喜欢</text>
   </view>
   <view class="guess">
-    <navigator 
-       class="guess-item" 
-       v-for="item in guessList" 
-       :key="item.id" 
-       :url="`/pages/goods/goods?id=4007498`"
-       >
+    <navigator
+      class="guess-item"
+      v-for="item in guessList"
+      :key="item.id"
+      :url="`/pages/goods/goods?id=4007498`"
+    >
       <image class="image" mode="aspectFill" :src="item.picture"></image>
       <view class="name">{{ item.name }}</view>
       <view class="price">

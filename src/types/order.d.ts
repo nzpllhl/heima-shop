@@ -139,7 +139,6 @@ export type LogisticItem = {
   time: string
 }
 
-
 /** 订单列表参数 */
 export type OrderListParams = PageParams & { orderState: number }
 
