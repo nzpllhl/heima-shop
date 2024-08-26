@@ -11,16 +11,16 @@ onLoad(async () => {
   code = res.code
 })
 // 获取用户手机号码(企业中的写法)
-const ongetPhoneNumber:UniHelper.ButtonOnGetphonenumber = async(ev)=>{
-   // 获取参数
- const encryptedData = ev.detail.encryptedData!
+const ongetPhoneNumber: UniHelper.ButtonOnGetphonenumber = async (ev) => {
+  // 获取参数
+  const encryptedData = ev.detail.encryptedData!
   const iv = ev.detail.iv!
   const res = await postLoginWxMinAPI({ code, encryptedData, iv })
   loginSuccess(res.result)
 }
 // #endif
 // 模拟手机号码快捷登录
-const ongetPhoneNumberSimple = async() =>{
+const ongetPhoneNumberSimple = async () => {
   const res = await postLoginWxMinSimpleAPI('15508714230')
   loginSuccess(res.result)
 }
@@ -40,7 +40,9 @@ const loginSuccess = (profile: LoginResult) => {
 <template>
   <view class="viewport">
     <view class="logo">
-      <image src="https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/images/logo_icon.png"></image>
+      <image
+        src="https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/images/logo_icon.png"
+      ></image>
     </view>
     <view class="login">
       <!-- 网页端表单登录 -->
@@ -51,10 +53,7 @@ const loginSuccess = (profile: LoginResult) => {
       <!-- #endif -->
       <!-- 小程序端授权登录 -->
       <!-- #ifdef MP-WEIXIN -->
-      <button class="button phone"
-        open-type="getPhoneNumber"
-        @getphonenumber="ongetPhoneNumber"
-        >
+      <button class="button phone" open-type="getPhoneNumber" @getphonenumber="ongetPhoneNumber">
         <text class="icon icon-phone"></text>
         手机号快捷登录
       </button>
@@ -206,4 +205,5 @@ page {
   font-size: 22rpx;
   color: #999;
   text-align: center;
-}</style>
+}
+</style>
