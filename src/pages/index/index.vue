@@ -43,8 +43,7 @@ onLoad(async () => {
   isLoding.value = false
 })
 
-//滚动触底的时候在调用猜你喜欢的数据，获取猜你喜欢的组件实例实例
-// 猜你喜欢组合式函数
+// useGuessList猜你喜欢组合式函数
 const { guessRef, onScrolltolower } = useGuessList()
 const istriggered = ref(false)
 // 监听下拉刷新

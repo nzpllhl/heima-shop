@@ -103,7 +103,7 @@
 		{
 			// 子包的根目录
 			"root": "pagesMember",
-			// 页面路径和窗口表现
+			// 页面路径和窗口表现也就是一个一个的分包页面
 			"pages": [
 				{
 					"path": "settings/settings",
@@ -178,10 +178,11 @@
 			]
 		}
 	],
-	// 分包预下载规则
+	// 配置分包预下载规则，指定进入到哪个页面的时候在加载哪个页面
 	"preloadRule": {
 		"pages/my/my": { // 打开我的页面的时候，在开始加载设置页面
 			"network": "all", // [!code ++] 不管什么网络都要加载
+      //需要加载的包
 			"packages": [
 				"pagesMember"
 			] // [!code ++]

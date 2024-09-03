@@ -31,8 +31,8 @@ const loginSuccess = (profile: LoginResult) => {
   uni.showToast({ icon: 'success', title: '登录成功' })
   setTimeout(() => {
     // 页面跳转小程序是多页面应用
-    // uni.switchTab({ url: '/pages/my/my' })
-    uni.navigateBack()
+    uni.switchTab({ url: '/pages/my/my' })
+    // uni.navigateBack()
   }, 500)
 }
 </script>

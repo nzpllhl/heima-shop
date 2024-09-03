@@ -13,6 +13,6 @@ export const useGuessList = () => {
     guessRef.value?.getMore()
   }
 
-  // 返回 ref 和事件处理函数
+  // 返回 ref 和事件处理函数给外部引用
   return { guessRef, onScrolltolower }
 }
