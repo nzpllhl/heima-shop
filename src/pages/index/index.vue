@@ -99,7 +99,7 @@ const onrefresherrefresh = async () => {
 #app,
 /* #endif */
 page {
-  background-color: #f7f7f7;
+  background-color: red;
   height: 100%;
   display: flex;
   flex-direction: column;

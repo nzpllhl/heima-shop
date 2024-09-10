@@ -89,6 +89,8 @@ const onBirthdayChange: UniHelper.DatePickerOnChange = (ev) => {
 //修改城市
 let fullLocationCode: [string, string, string] = ['', '', '']
 const onFullLocationChange: UniHelper.RegionPickerOnChange = (ev) => {
+  console.log(ev, 'lhlev')
+
   // 修改前端界面
   profile.value.fullLocation = ev.detail.value.join(' ')
   // 提交后端更新
